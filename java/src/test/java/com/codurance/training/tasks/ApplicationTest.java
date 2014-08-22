@@ -42,7 +42,7 @@ public final class ApplicationTest {
         }
 
         applicationThread.interrupt();
-        throw new IllegalStateException("The application is still running.");
+        applicationThread.join();
     }
 
     @Test(timeout = 1000) public void
