@@ -18,6 +18,8 @@ public final class TaskList implements Runnable {
 
     private long lastId = 0;
 
+    private TaskService taskService;
+
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(System.out);
@@ -27,6 +29,7 @@ public final class TaskList implements Runnable {
     public TaskList(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
+        taskService = new TaskService(out);
     }
 
     public void run() {
@@ -51,7 +54,7 @@ public final class TaskList implements Runnable {
         String command = commandRest[0];
         switch (command) {
             case "show":
-                show();
+                taskService.show();
                 break;
             case "add":
                 add(commandRest[1]);
@@ -68,16 +71,6 @@ public final class TaskList implements Runnable {
             default:
                 error(command);
                 break;
-        }
-    }
-
-    private void show() {
-        for (Map.Entry<String, List<Task>> project : TaskRepository.getTasks().entrySet()) {
-            out.println(project.getKey());
-            for (Task task : project.getValue()) {
-                out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
-            }
-            out.println();
         }
     }
 
