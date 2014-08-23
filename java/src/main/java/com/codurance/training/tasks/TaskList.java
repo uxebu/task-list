@@ -15,8 +15,6 @@ public final class TaskList implements Runnable {
     private final BufferedReader in;
     private final PrintWriter out;
 
-    private long lastId = 0;
-
     private TaskService taskService;
 
     public static void main(String[] args) throws Exception {
@@ -80,18 +78,8 @@ public final class TaskList implements Runnable {
             taskService.addProject(subcommandRest[1]);
         } else if (subcommand.equals("task")) {
             String[] projectTask = subcommandRest[1].split(" ", 2);
-            addTask(projectTask[0], projectTask[1]);
+            taskService.addTask(projectTask[0], projectTask[1], this);
         }
-    }
-
-    private void addTask(String project, String description) {
-        List<Task> projectTasks = TaskRepository.getTasks().get(project);
-        if (projectTasks == null) {
-            out.printf("Could not find a project with the name \"%s\".", project);
-            out.println();
-            return;
-        }
-        projectTasks.add(new Task(nextId(), description, false));
     }
 
     private void check(String idString) {
@@ -131,7 +119,4 @@ public final class TaskList implements Runnable {
         out.println();
     }
 
-    private long nextId() {
-        return ++lastId;
-    }
 }

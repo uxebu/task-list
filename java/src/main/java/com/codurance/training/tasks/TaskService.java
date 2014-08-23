@@ -26,4 +26,14 @@ public class TaskService {
     void addProject(String name) {
         TaskRepository.getTasks().put(name, new ArrayList<Task>());
     }
+
+    void addTask(String project, String description, TaskList taskList) {
+        List<Task> projectTasks = TaskRepository.getTasks().get(project);
+        if (projectTasks == null) {
+            out.printf("Could not find a project with the name \"%s\".", project);
+            out.println();
+            return;
+        }
+        projectTasks.add(new Task(TaskRepository.nextId(), description, false));
+    }
 }

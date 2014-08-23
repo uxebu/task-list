@@ -49,6 +49,9 @@ public final class ApplicationTest {
     it_works() throws IOException {
         execute("show");
 
+        execute("add task secrets Eat more donuts.");
+        readLines("Could not find a project with the name \"secrets\".");
+
         execute("add project secrets");
         execute("add task secrets Eat more donuts.");
         execute("add task secrets Destroy all humans.");
