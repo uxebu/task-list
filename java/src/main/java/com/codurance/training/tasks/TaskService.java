@@ -2,6 +2,7 @@ package com.codurance.training.tasks;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,5 +21,9 @@ public class TaskService {
             }
             out.println();
         }
+    }
+
+    void addProject(String name) {
+        TaskRepository.getTasks().put(name, new ArrayList<Task>());
     }
 }
