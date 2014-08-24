@@ -57,10 +57,10 @@ public final class TaskList implements Runnable {
                 add(commandRest[1]);
                 break;
             case "check":
-                check(commandRest[1]);
+                taskService.check(commandRest[1], this);
                 break;
             case "uncheck":
-                uncheck(commandRest[1]);
+                taskService.uncheck(commandRest[1], this);
                 break;
             case "help":
                 help();
@@ -80,28 +80,6 @@ public final class TaskList implements Runnable {
             String[] projectTask = subcommandRest[1].split(" ", 2);
             taskService.addTask(projectTask[0], projectTask[1], this);
         }
-    }
-
-    private void check(String idString) {
-        setDone(idString, true);
-    }
-
-    private void uncheck(String idString) {
-        setDone(idString, false);
-    }
-
-    private void setDone(String idString, boolean done) {
-        int id = Integer.parseInt(idString);
-        for (Map.Entry<String, List<Task>> project : TaskRepository.getTasks().entrySet()) {
-            for (Task task : project.getValue()) {
-                if (task.getId() == id) {
-                    task.setDone(done);
-                    return;
-                }
-            }
-        }
-        out.printf("Could not find a task with an ID of %d.", id);
-        out.println();
     }
 
     private void help() {

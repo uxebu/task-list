@@ -36,4 +36,26 @@ public class TaskService {
         }
         projectTasks.add(new Task(TaskRepository.nextId(), description, false));
     }
+
+    void setDone(String idString, boolean done, TaskList taskList) {
+        int id = Integer.parseInt(idString);
+        for (Map.Entry<String, List<Task>> project : TaskRepository.getTasks().entrySet()) {
+            for (Task task : project.getValue()) {
+                if (task.getId() == id) {
+                    task.setDone(done);
+                    return;
+                }
+            }
+        }
+        out.printf("Could not find a task with an ID of %d.", id);
+        out.println();
+    }
+
+    void check(String idString, TaskList taskList) {
+        setDone(idString, true, taskList);
+    }
+
+    void uncheck(String idString, TaskList taskList) {
+        setDone(idString, false, taskList);
+    }
 }
