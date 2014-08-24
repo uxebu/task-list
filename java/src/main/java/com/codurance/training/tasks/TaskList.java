@@ -22,7 +22,7 @@ public final class TaskList implements Runnable {
     public TaskList(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
-        taskService = new TaskService(out);
+        taskService = new TaskService(out, new TaskRepository());
     }
 
     public void run() {
