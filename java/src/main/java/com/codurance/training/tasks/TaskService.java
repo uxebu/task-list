@@ -1,6 +1,5 @@
 package com.codurance.training.tasks;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class TaskService {
         TaskRepository.getTasks().put(name, new ArrayList<Task>());
     }
 
-    void addTask(String project, String description, TaskList taskList) {
+    void addTask(String project, String description) {
         List<Task> projectTasks = TaskRepository.getTasks().get(project);
         if (projectTasks == null) {
             out.printf("Could not find a project with the name \"%s\".", project);
@@ -37,7 +36,7 @@ public class TaskService {
         projectTasks.add(new Task(TaskRepository.nextId(), description, false));
     }
 
-    void setDone(String idString, boolean done, TaskList taskList) {
+    void setDone(String idString, boolean done) {
         int id = Integer.parseInt(idString);
         for (Map.Entry<String, List<Task>> project : TaskRepository.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
@@ -51,11 +50,11 @@ public class TaskService {
         out.println();
     }
 
-    void check(String idString, TaskList taskList) {
-        setDone(idString, true, taskList);
+    void check(String idString) {
+        setDone(idString, true);
     }
 
-    void uncheck(String idString, TaskList taskList) {
-        setDone(idString, false, taskList);
+    void uncheck(String idString) {
+        setDone(idString, false);
     }
 }

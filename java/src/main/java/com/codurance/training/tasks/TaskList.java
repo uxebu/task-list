@@ -4,9 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 public final class TaskList implements Runnable {
     private static final String QUIT = "quit";
@@ -56,10 +53,10 @@ public final class TaskList implements Runnable {
                 add(commandRest[1]);
                 break;
             case "check":
-                taskService.check(commandRest[1], this);
+                taskService.check(commandRest[1]);
                 break;
             case "uncheck":
-                taskService.uncheck(commandRest[1], this);
+                taskService.uncheck(commandRest[1]);
                 break;
             case "help":
                 help();
@@ -77,7 +74,7 @@ public final class TaskList implements Runnable {
             taskService.addProject(subcommandRest[1]);
         } else if (subcommand.equals("task")) {
             String[] projectTask = subcommandRest[1].split(" ", 2);
-            taskService.addTask(projectTask[0], projectTask[1], this);
+            taskService.addTask(projectTask[0], projectTask[1]);
         }
     }
 
