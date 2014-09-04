@@ -11,7 +11,7 @@ public final class TaskList implements Runnable {
     private final BufferedReader in;
     private final PrintWriter out;
 
-    private TaskService taskService;
+    private ApplicationFacade applicationFacade;
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +22,7 @@ public final class TaskList implements Runnable {
     public TaskList(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
-        taskService = new TaskService(out, new TaskRepository());
+        applicationFacade = new ApplicationFacade(out, new TaskRepository());
     }
 
     public void run() {
@@ -47,16 +47,16 @@ public final class TaskList implements Runnable {
         String command = commandRest[0];
         switch (command) {
             case "show":
-                taskService.show();
+                applicationFacade.show();
                 break;
             case "add":
                 add(commandRest[1]);
                 break;
             case "check":
-                taskService.check(commandRest[1]);
+                applicationFacade.check(commandRest[1]);
                 break;
             case "uncheck":
-                taskService.uncheck(commandRest[1]);
+                applicationFacade.uncheck(commandRest[1]);
                 break;
             case "help":
                 help();
@@ -71,10 +71,10 @@ public final class TaskList implements Runnable {
         String[] subcommandRest = commandLine.split(" ", 2);
         String subcommand = subcommandRest[0];
         if (subcommand.equals("project")) {
-            taskService.addProject(subcommandRest[1]);
+            applicationFacade.addProject(subcommandRest[1]);
         } else if (subcommand.equals("task")) {
             String[] projectTask = subcommandRest[1].split(" ", 2);
-            taskService.addTask(projectTask[0], projectTask[1]);
+            applicationFacade.addTask(projectTask[0], projectTask[1]);
         }
     }
 

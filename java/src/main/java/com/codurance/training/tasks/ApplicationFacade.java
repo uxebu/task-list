@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class TaskService {
+public class ApplicationFacade {
     private PrintWriter out;
 
     private TaskRepository taskRepository;
 
-    public TaskService(PrintWriter out, TaskRepository taskRepository) {
+    public ApplicationFacade(PrintWriter out, TaskRepository taskRepository) {
         this.out = out;
         this.taskRepository = taskRepository;
     }
