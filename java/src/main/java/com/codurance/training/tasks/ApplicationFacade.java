@@ -2,6 +2,7 @@ package com.codurance.training.tasks;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -9,16 +10,18 @@ public class ApplicationFacade {
     private PrintWriter out;
 
     private TaskRepository taskRepository;
+    private TaskService taskService;
 
     public ApplicationFacade(PrintWriter out, TaskRepository taskRepository) {
         this.out = out;
         this.taskRepository = taskRepository;
+        taskService = new TaskService(taskRepository);
     }
 
     public void show() {
-        for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
-            out.println(project.getKey());
-            for (Task task : project.getValue()) {
+        for (String project : taskService.findAllProjects()) {
+            out.println(project);
+            for (Task task : taskService.findAllTasksForProject(project)) {
                 out.printf("    [%c] %d: %s%n", (task.isDone() ? 'x' : ' '), task.getId(), task.getDescription());
             }
             out.println();
@@ -30,7 +33,7 @@ public class ApplicationFacade {
     }
 
     public void addTask(String project, String description) {
-        List<Task> projectTasks = taskRepository.getTasks().get(project);
+        Collection<Task> projectTasks = taskService.findAllTasksForProject(project);
         if (projectTasks == null) {
             out.printf("Could not find a project with the name \"%s\".", project);
             out.println();
