@@ -15,7 +15,7 @@ public class ApplicationFacade {
         this.taskRepository = taskRepository;
     }
 
-    void show() {
+    public void show() {
         for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
             out.println(project.getKey());
             for (Task task : project.getValue()) {
@@ -25,11 +25,11 @@ public class ApplicationFacade {
         }
     }
 
-    void addProject(String name) {
+    public void addProject(String name) {
         taskRepository.getTasks().put(name, new ArrayList<Task>());
     }
 
-    void addTask(String project, String description) {
+    public void addTask(String project, String description) {
         List<Task> projectTasks = taskRepository.getTasks().get(project);
         if (projectTasks == null) {
             out.printf("Could not find a project with the name \"%s\".", project);
@@ -39,7 +39,7 @@ public class ApplicationFacade {
         projectTasks.add(new Task(taskRepository.nextId(), description, false));
     }
 
-    void setDone(String idString, boolean done) {
+    private void setDone(String idString, boolean done) {
         int id = Integer.parseInt(idString);
         for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
@@ -53,11 +53,11 @@ public class ApplicationFacade {
         out.println();
     }
 
-    void check(String idString) {
+    public void check(String idString) {
         setDone(idString, true);
     }
 
-    void uncheck(String idString) {
+    public void uncheck(String idString) {
         setDone(idString, false);
     }
 }
