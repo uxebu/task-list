@@ -1,8 +1,12 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.facade;
+
+import com.codurance.training.tasks.Task;
+import com.codurance.training.tasks.service.ActionResult;
+import com.codurance.training.tasks.service.TaskRepository;
+import com.codurance.training.tasks.service.TaskService;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

@@ -1,5 +1,8 @@
 package com.codurance.training.tasks;
 
+import com.codurance.training.tasks.facade.ApplicationFacade;
+import com.codurance.training.tasks.service.TaskRepository;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

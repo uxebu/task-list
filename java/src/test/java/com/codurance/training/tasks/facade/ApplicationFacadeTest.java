@@ -1,5 +1,6 @@
-package com.codurance.training.tasks;
+package com.codurance.training.tasks.facade;
 
+import com.codurance.training.tasks.service.TaskRepository;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
