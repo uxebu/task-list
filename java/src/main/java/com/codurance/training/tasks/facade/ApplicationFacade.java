@@ -2,7 +2,6 @@ package com.codurance.training.tasks.facade;
 
 import com.codurance.training.tasks.Task;
 import com.codurance.training.tasks.service.ActionResult;
-import com.codurance.training.tasks.service.TaskRepository;
 import com.codurance.training.tasks.service.TaskService;
 
 import java.io.PrintWriter;
@@ -11,9 +10,9 @@ public class ApplicationFacade {
     private PrintWriter out;
     private TaskService taskService;
 
-    public ApplicationFacade(PrintWriter out, TaskRepository taskRepository) {
+    public ApplicationFacade(PrintWriter out, TaskService taskService) {
         this.out = out;
-        taskService = new TaskService(taskRepository);
+        this.taskService = taskService;
     }
 
     public void show() {

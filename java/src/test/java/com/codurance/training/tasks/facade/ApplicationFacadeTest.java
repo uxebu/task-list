@@ -1,6 +1,7 @@
 package com.codurance.training.tasks.facade;
 
 import com.codurance.training.tasks.service.TaskRepository;
+import com.codurance.training.tasks.service.TaskService;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ApplicationFacadeTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final PrintWriter printWriter = new PrintWriter(outputStream);
-    private final ApplicationFacade applicationFacade = new ApplicationFacade(printWriter, new TaskRepository());
+    private final ApplicationFacade applicationFacade = new ApplicationFacade(printWriter, new TaskService(new TaskRepository()));
 
     @Test
     public void noProjectsResultsInEmptyOutput() throws Exception {

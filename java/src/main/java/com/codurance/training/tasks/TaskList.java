@@ -2,6 +2,7 @@ package com.codurance.training.tasks;
 
 import com.codurance.training.tasks.facade.ApplicationFacade;
 import com.codurance.training.tasks.service.TaskRepository;
+import com.codurance.training.tasks.service.TaskService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public final class TaskList implements Runnable {
     public TaskList(BufferedReader reader, PrintWriter writer) {
         this.in = reader;
         this.out = writer;
-        applicationFacade = new ApplicationFacade(out, new TaskRepository());
+        applicationFacade = new ApplicationFacade(out, new TaskService(new TaskRepository()));
     }
 
     public void run() {
