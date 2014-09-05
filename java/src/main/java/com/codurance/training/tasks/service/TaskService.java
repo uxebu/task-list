@@ -19,7 +19,7 @@ public class TaskService {
         return projectNameToTasksMap.get(projectName);
     }
 
-    public java.util.Set<String> findAllProjects() {
+    public Collection<String> findAllProjects() {
         return taskRepository.getTasks().keySet();
     }
 
