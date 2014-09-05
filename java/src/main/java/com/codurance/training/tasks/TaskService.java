@@ -20,4 +20,13 @@ public class TaskService {
     public java.util.Set<String> findAllProjects() {
         return taskRepository.getTasks().keySet();
     }
+
+    public ActionResult addTaskToProject(String project, String description) {
+        if (taskRepository.projectWithNameExists(project)) {
+            Collection<Task> projectTasks = findAllTasksForProject(project);
+            projectTasks.add(new Task(taskRepository.nextId(), description, false));
+            return new ActionSuccessful();
+        }
+        return new ActionFailed();
+    }
 }

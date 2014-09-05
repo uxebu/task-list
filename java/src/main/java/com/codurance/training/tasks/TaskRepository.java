@@ -16,4 +16,8 @@ public class TaskRepository {
     public long nextId() {
         return ++lastId;
     }
+
+    public boolean projectWithNameExists(String project) {
+        return tasks.containsKey(project);
+    }
 }

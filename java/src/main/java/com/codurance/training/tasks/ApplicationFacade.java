@@ -33,13 +33,11 @@ public class ApplicationFacade {
     }
 
     public void addTask(String project, String description) {
-        Collection<Task> projectTasks = taskService.findAllTasksForProject(project);
-        if (projectTasks == null) {
+        ActionResult actionResult = taskService.addTaskToProject(project, description);
+        if (actionResult.failed()) {
             out.printf("Could not find a project with the name \"%s\".", project);
             out.println();
-            return;
         }
-        projectTasks.add(new Task(taskRepository.nextId(), description, false));
     }
 
     private void setDone(String idString, boolean done) {
