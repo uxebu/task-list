@@ -61,6 +61,22 @@ public class TaskServiceTest {
         assertThat(tasks, contains(taskWithDescription("a task")));
     }
 
+    @Test
+    public void settingAnUndoneTaskToDone() throws Exception {
+        taskService.addProject("project");
+        taskService.addTaskToProject("project", "task to be done");
+
+        Collection<Task> tasks = taskService.findAllTasksForProject("project");
+
+        Task task = tasks.iterator().next();
+        assertThat(task.isDone(), is(false));
+
+        taskService.setTaskDone(((int) task.getId()), true);
+
+        Collection<Task> newTasks = taskService.findAllTasksForProject("project");
+        assertThat(newTasks.iterator().next().isDone(), is(true));
+    }
+
     private Matcher<Task> taskWithDescription(String description) {
         return new FeatureMatcher<Task, String>(equalTo(description), "task with description", "description") {
             @Override
