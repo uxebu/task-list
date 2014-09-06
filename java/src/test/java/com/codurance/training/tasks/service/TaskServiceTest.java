@@ -71,7 +71,8 @@ public class TaskServiceTest {
         Task task = tasks.iterator().next();
         assertThat(task.isDone(), is(false));
 
-        taskService.setTaskDone(((int) task.getId()), true);
+        ActionResult actionResult = taskService.setTaskDone(((int) task.getId()), true);
+        assertThat(actionResult.failed(), is(false));
 
         Collection<Task> newTasks = taskService.findAllTasksForProject("project");
         assertThat(newTasks.iterator().next().isDone(), is(true));
