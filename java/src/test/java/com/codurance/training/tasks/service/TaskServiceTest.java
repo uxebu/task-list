@@ -78,6 +78,14 @@ public class TaskServiceTest {
         assertThat(newTasks.iterator().next().isDone(), is(true));
     }
 
+    @Test
+    public void tryingToSettingANonExistingTaskToDoneResultInAnError() throws Exception {
+        int nonExistingId = 2;
+        ActionResult actionResult = taskService.setTaskDone(nonExistingId, true);
+
+        assertThat(actionResult.failed(), is(true));
+    }
+
     private Matcher<Task> taskWithDescription(String description) {
         return new FeatureMatcher<Task, String>(equalTo(description), "task with description", "description") {
             @Override
