@@ -15,13 +15,17 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public Collection<Task> findAllTasksForProject(String projectName) {
-        Map<String, List<Task>> projectNameToTasksMap = taskRepository.getTasks();
-        return projectNameToTasksMap.get(projectName);
+    public void addProject(String projectName) {
+        taskRepository.getTasks().put(projectName, new ArrayList<Task>());
     }
 
     public Collection<String> findAllProjects() {
         return taskRepository.getTasks().keySet();
+    }
+
+    public Collection<Task> findAllTasksForProject(String projectName) {
+        Map<String, List<Task>> projectNameToTasksMap = taskRepository.getTasks();
+        return projectNameToTasksMap.get(projectName);
     }
 
     public ActionResult addTaskToProject(String project, String description) {
@@ -31,10 +35,6 @@ public class TaskService {
             return new ActionSuccessful();
         }
         return new ActionFailed();
-    }
-
-    public void addProject(String projectName) {
-        taskRepository.getTasks().put(projectName, new ArrayList<Task>());
     }
 
     public ActionResult setTaskDone(int id, boolean done) {
