@@ -32,6 +32,7 @@ public class TaskService {
         if (taskRepository.projectWithNameExists(project)) {
             Collection<Task> projectTasks = findAllTasksForProject(project);
             projectTasks.add(new Task(taskRepository.nextId(), description, false));
+            //TODO should maybe return the task that was created or at least its id
             return new ActionSuccessful();
         }
         return new ActionFailed();
