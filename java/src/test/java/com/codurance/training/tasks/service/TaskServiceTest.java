@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class TaskServiceTest {
 
+    public static final int NON_EXISTING_ID = 99;
     private final TaskService taskService = new TaskService(new TaskRepository());
 
     @Test
@@ -79,11 +80,24 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void tryingToSettingANonExistingTaskToDoneResultInAnError() throws Exception {
-        int nonExistingId = 2;
-        ActionResult actionResult = taskService.setTaskDone(nonExistingId, true);
+    public void tryingToSettingANonExistingTaskToDoneResultInAnErrorWhenNoProjectTasksExist() throws Exception {
+        ActionResult actionResult = taskService.setTaskDone(NON_EXISTING_ID, true);
 
         assertThat(actionResult.failed(), is(true));
+    }
+
+    @Test
+    public void tryingToSettingANonExistingTaskToDoneResultInAnErrorWhenOtherProjectTasksExist() throws Exception {
+        createProjectWithAnotherTask();
+
+        ActionResult actionResult = taskService.setTaskDone(NON_EXISTING_ID, true);
+
+        assertThat(actionResult.failed(), is(true));
+    }
+
+    private void createProjectWithAnotherTask() {
+        taskService.addProject("other project");
+        taskService.addTaskToProject("other project", "other task");
     }
 
     private Matcher<Task> taskWithDescription(String description) {
