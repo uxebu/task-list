@@ -49,4 +49,15 @@ public class TaskService {
         }
         return new ActionFailed();
     }
+
+    public Task findTaskById(long taskId) {
+        for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
+            for (Task task : project.getValue()) {
+                if (task.getId() == taskId) {
+                    return task;
+                }
+            }
+        }
+        return null;
+    }
 }

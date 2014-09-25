@@ -65,18 +65,17 @@ public class TaskServiceTest {
     @Test
     public void settingAnUndoneTaskToDone() throws Exception {
         taskService.addProject("project");
-        taskService.addTaskToProject("project", "task to be done");
+        ActionResult actionResult = taskService.addTaskToProject("project", "task to be done");
 
-        Collection<Task> tasks = taskService.findAllTasksForProject("project");
-
-        Task task = tasks.iterator().next();
+        long taskId = actionResult.taskId();
+        Task task = taskService.findTaskById(taskId);
         assertThat(task.isDone(), is(false));
 
-        ActionResult actionResult = taskService.setTaskDone(task.getId(), true);
-        assertThat(actionResult.failed(), is(false));
+        ActionResult actionResultFromSettingTaskDone = taskService.setTaskDone(taskId, true);
+        assertThat(actionResultFromSettingTaskDone.failed(), is(false));
 
-        Collection<Task> newTasks = taskService.findAllTasksForProject("project");
-        assertThat(newTasks.iterator().next().isDone(), is(true));
+        Task newFoundTask = taskService.findTaskById(taskId);
+        assertThat(newFoundTask.isDone(), is(true));
     }
 
     @Test
