@@ -5,4 +5,9 @@ public class ActionFailed implements ActionResult {
     public boolean failed() {
         return true;
     }
+
+    @Override
+    public long taskId() {
+        throw new IllegalStateException("Action failed, so there is no taskId.");
+    }
 }

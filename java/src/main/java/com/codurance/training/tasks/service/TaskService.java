@@ -31,19 +31,19 @@ public class TaskService {
     public ActionResult addTaskToProject(String project, String description) {
         if (taskRepository.projectWithNameExists(project)) {
             Collection<Task> projectTasks = findAllTasksForProject(project);
-            projectTasks.add(new Task(taskRepository.nextId(), description, false));
-            //TODO should maybe return the task that was created or at least its id
-            return new ActionSuccessful();
+            Task task = new Task(taskRepository.nextId(), description, false);
+            projectTasks.add(task);
+            return new ActionSuccessful(task.getId());
         }
         return new ActionFailed();
     }
 
-    public ActionResult setTaskDone(int id, boolean done) {
+    public ActionResult setTaskDone(long id, boolean done) {
         for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
                 if (task.getId() == id) {
                     task.setDone(done);
-                    return new ActionSuccessful();
+                    return new ActionSuccessful(id);
                 }
             }
         }
