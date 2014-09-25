@@ -96,14 +96,16 @@ public class TaskServiceTest {
 
     @Test
     public void tryingToSettingANonExistingTaskToDoneResultInAnErrorWhenOtherProjectTasksExist() throws Exception {
+        createProjectWithAnotherTask();
+
         ActionResult actionResult = taskService.setTaskDone(NON_EXISTING_ID, true);
 
         assertThat(actionResult.failed(), is(true));
     }
 
-    private long createProjectWithAnotherTask() {
+    private void createProjectWithAnotherTask() {
         taskService.addProject("other project");
-        return taskService.addTaskToProject("other project", "other task").taskId();
+        taskService.addTaskToProject("other project", "other task");
     }
 
     private Matcher<Task> taskWithDescription(String description) {
