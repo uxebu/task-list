@@ -46,6 +46,15 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void addedTaskCanBeFoundByReturnedTaskId() throws Exception {
+        taskService.addProject("project");
+        ActionResult actionResult = taskService.addTaskToProject("project", "a task");
+        Task task = taskService.findTaskById(actionResult.taskId());
+
+        assertThat(task, taskWithDescription("a task"));
+    }
+
+    @Test
     public void askingForTaskOfNonExistingProjectResultsInNull() throws Exception {
         Collection<Task> tasksForProject = taskService.findAllTasksForProject("project does not exist");
 
