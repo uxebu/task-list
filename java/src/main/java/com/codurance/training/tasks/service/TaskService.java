@@ -38,6 +38,7 @@ public class TaskService {
         return new ActionFailed();
     }
 
+    // TODO add missing test for: no tasks in project, only other task in project
     public ActionResult setTaskDone(long id, boolean done) {
         for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
@@ -50,6 +51,7 @@ public class TaskService {
         return new ActionFailed();
     }
 
+    // TODO add missing test for: no projects, no tasks in project, only other task in project
     public Task findTaskById(long taskId) {
         for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
             for (Task task : project.getValue()) {
