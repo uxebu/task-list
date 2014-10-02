@@ -31,21 +31,9 @@ public class TaskService {
     public ActionResult addTaskToProject(String project, String description) {
         if (taskRepository.projectWithNameExists(project)) {
             Collection<Task> projectTasks = findAllTasksForProject(project);
-            Task task = new Task(taskRepository.nextId(), description, false);
+            Task task = new Task(taskRepository.nextId(), description);
             projectTasks.add(task);
             return new ActionSuccessful(task.getId());
-        }
-        return new ActionFailed();
-    }
-
-    public ActionResult setTaskDone(long id, boolean done) {
-        for (Map.Entry<String, List<Task>> project : taskRepository.getTasks().entrySet()) {
-            for (Task task : project.getValue()) {
-                if (task.getId() == id) {
-                    task.setDone(done);
-                    return new ActionSuccessful(id);
-                }
-            }
         }
         return new ActionFailed();
     }

@@ -71,43 +71,6 @@ public class TaskServiceTest {
         assertThat(tasks, contains(taskWithDescription("a task")));
     }
 
-    @Test
-    public void settingAnUndoneTaskToDone() throws Exception {
-        taskService.addProject("project");
-        ActionResult actionResult = taskService.addTaskToProject("project", "task to be done");
-
-        long taskId = actionResult.taskId();
-        Task task = taskService.findTaskById(taskId);
-        assertThat(task.isDone(), is(false));
-
-        ActionResult actionResultFromSettingTaskDone = taskService.setTaskDone(taskId, true);
-        assertThat(actionResultFromSettingTaskDone.failed(), is(false));
-
-        Task newFoundTask = taskService.findTaskById(taskId);
-        assertThat(newFoundTask.isDone(), is(true));
-    }
-
-    @Test
-    public void tryingToSettingANonExistingTaskToDoneResultInAnErrorWhenNoProjectTasksExist() throws Exception {
-        ActionResult actionResult = taskService.setTaskDone(NON_EXISTING_ID, true);
-
-        assertThat(actionResult.failed(), is(true));
-    }
-
-    @Test
-    public void tryingToSettingANonExistingTaskToDoneResultInAnErrorWhenOtherProjectTasksExist() throws Exception {
-        createProjectWithAnotherTask();
-
-        ActionResult actionResult = taskService.setTaskDone(NON_EXISTING_ID, true);
-
-        assertThat(actionResult.failed(), is(true));
-    }
-
-    private void createProjectWithAnotherTask() {
-        taskService.addProject("other project");
-        taskService.addTaskToProject("other project", "other task");
-    }
-
     private Matcher<Task> taskWithDescription(String description) {
         return new FeatureMatcher<Task, String>(equalTo(description), "task with description", "description") {
             @Override
