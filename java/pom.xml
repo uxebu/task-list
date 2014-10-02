@@ -33,19 +33,6 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.8</version>
-                <configuration>
-                    <programs>
-                        <program>
-                            <id>task-list</id>
-                            <mainClass>com.codurance.training.tasks.TaskList</mainClass>
-                        </program>
-                    </programs>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
