@@ -2,9 +2,7 @@ package com.codurance.training.tasks.service;
 
 import com.codurance.training.tasks.Task;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TaskRepository {
     private final Map<String, List<Task>> tasks = new LinkedHashMap<>();
@@ -21,5 +19,13 @@ public class TaskRepository {
 
     public boolean projectWithNameExists(String project) {
         return tasks.containsKey(project);
+    }
+
+    public Collection<Task> findAllTasks() {
+        ArrayList<Task> allTasks = new ArrayList<>();
+        for (List<Task> tasksOfProject : getTasks().values()) {
+            allTasks.addAll(tasksOfProject);
+        }
+        return allTasks;
     }
 }
