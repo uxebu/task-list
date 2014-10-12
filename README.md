@@ -15,7 +15,10 @@ You should try to wrap tests around the behaviour you're refactoring. At the beg
 ### Features
 
   1. Deadlines
-    1. Give each task an optional deadline with the method `TaskService#addDealineToTask(id, deadline)`
+    1. Give each task an optional deadline with the method
+	```java
+	TaskService#addDealineToTask(id, deadline)`
+	```
     2. Show all tasks due today with `TaskService#showTasksDueToday` command.
   2. Customisable IDs
     1. Allow the user to specify an identifier that's not a number.
