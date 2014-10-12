@@ -17,4 +17,11 @@ public final class Task {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "Task [ " +
+                "id: " + id +
+                ", description: " + description +
+                " ]";
+    }
 }
