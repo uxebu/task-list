@@ -55,6 +55,22 @@ public class TaskServiceTest {
     }
 
     @Test
+    public void findByIdReturnsNullWhenNoProjectsExist() throws Exception {
+        Task task = taskService.findTaskById(32L);
+
+        assertThat(task, is(nullValue()));
+    }
+
+    @Test
+    public void findByIdReturnsNullWhenNoTaskWithGivenIdExists() throws Exception {
+        taskService.addProject("project");
+        ActionResult actionResult = taskService.addTaskToProject("project", "a task");
+        Task task = taskService.findTaskById(actionResult.taskId() + 1);
+
+        assertThat(task, is(nullValue()));
+    }
+
+    @Test
     public void askingForTaskOfNonExistingProjectResultsInNull() throws Exception {
         Collection<Task> tasksForProject = taskService.findAllTasksForProject("project does not exist");
 
