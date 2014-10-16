@@ -17,7 +17,7 @@ You should try to wrap tests around the behaviour you're refactoring. At the beg
   1. Deadlines
     1. Give each task an optional deadline with the method
 	```
-	TaskService#addDealineToTask(id, deadline)
+	TaskService#addDeadlineToTask(id, deadline)
 	```
     2. Show all tasks due today with `TaskService#showTasksDueToday` command.
   2. Customisable IDs
