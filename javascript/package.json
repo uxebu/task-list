@@ -1,0 +1,23 @@
+{
+  "name": "task-list",
+  "version": "0.0.0",
+  "description": "This is an example of code obsessed with primitives.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/uxebu/task-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uxebu/task-list/issues"
+  },
+  "homepage": "https://github.com/uxebu/task-list",
+  "devDependencies": {
+    "jasmine-matchers": "^0.2.3",
+    "jasmine-node": "^1.14.5"
+  }
+}
