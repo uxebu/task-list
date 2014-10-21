@@ -4,7 +4,7 @@
   "description": "This is an example of code obsessed with primitives.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lsc --compile -o . *.ls; jasmine-node src"
   },
   "repository": {
     "type": "git",
