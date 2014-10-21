@@ -53,6 +53,12 @@ describe 'tasks' (void) !->
     task = taskService.findTaskById taskId+1
     expect task .toBe null
 
+  # public void askingForTaskOfNonExistingProjectResultsInNull() throws Exception {
+  it 'asking for task of non esisting project results in null' !->
+    tasksForProject = taskService.findAllTasksForProject 'project does not exist'
+
+    expect tasksForProject .toBe null
+
 class TaskService
 
   ->
@@ -82,3 +88,6 @@ class TaskService
 
   findAllProjects: ->
     Object.keys @_projects
+
+  findAllTasksForProject: ->
+    null
