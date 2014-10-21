@@ -3,17 +3,17 @@ describe 'test setup' (void) ->
     expect true .toBe true
 
 # porting the java app, by `converting` the tests to a LiveScript style
-describe 'tasks' (void) ->
+describe 'tasks' (void) !->
   taskService = null
   beforeEach !->
     taskService := new TaskService()
 
   # public void yieldsEmptyProjectListWhenNoProjectsWereAdded() throws Exception {
-  it 'no projects cant return any tasks' ->
+  it 'yields empty project list when no projects were added' !->
     expect taskService.findAllProjects() .toEqual []
 
   # public void returnsListOfProjectsThatWereAdded() throws Exception {
-  it 'no projects cant return any tasks' ->
+  it 'returns list of projects that were added' !->
     taskService.addProject('first project');
     taskService.addProject('second project');
 
