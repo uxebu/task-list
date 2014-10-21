@@ -21,6 +21,11 @@ describe 'tasks' (void) !->
     expect projects .toContain 'first project'
     expect projects .toContain 'second project'
 
+  # public void tryingToAddTaskForNonExistingProjectResultsInAnError() throws Exception {
+  it 'trying to add task for non existing project results in an error' !->
+    expect !->
+      taskService.addTaskToProject 'project' 'a task'
+    .toThrow()
 
 
 class TaskService
@@ -32,6 +37,9 @@ class TaskService
 
   addProject: (projectName) ->
     @_tasks.push projectName
+
+  addTaskToProject: ->
+    throw Error
 
   findAllProjects: ->
     @_tasks
