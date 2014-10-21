@@ -1,3 +1,7 @@
+describe 'test setup' (void) ->
+  it 'works' ->
+    expect true .toBe true
+
 describe 'tasks' (void) ->
   tasks = null
   beforeEach !->
