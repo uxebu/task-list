@@ -59,6 +59,15 @@ describe 'tasks' (void) !->
 
     expect tasksForProject .toBe null
 
+  # public void retrievingTaskAddedToProject() throws Exception {
+  it 'retrieve task added to project' !->
+    taskService.addProject 'project'
+    taskService.addTaskToProject 'project' 'a task'
+
+    tasks = taskService.findAllTasksForProject 'project'
+
+    expect tasks[0].name .toBe 'a task'
+
 class TaskService
 
   ->
@@ -89,5 +98,5 @@ class TaskService
   findAllProjects: ->
     Object.keys @_projects
 
-  findAllTasksForProject: ->
-    null
+  findAllTasksForProject: (projectName) ->
+    @_projects[projectName] || null
