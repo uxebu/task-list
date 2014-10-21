@@ -34,12 +34,20 @@ describe 'tasks' (void) !->
       taskService.addTaskToProject 'project' 'a task'
     .not.toThrow()
 
+  # public void addedTaskCanBeFoundByReturnedTaskId() throws Exception {
+  it 'added task can be found by returned task id' !->
+    taskService.addProject 'project'
+    taskId = taskService.addTaskToProject 'project' 'a task'
+    task = taskService.findTaskById taskId
+    expect task.name .toBe 'a task'
+
 class TaskService
 
   ->
     @_projects = {}
 
   _projects : null
+  _taskIdCounter: 0
 
   addProject: (projectName) ->
     @_projects[projectName] = []
@@ -47,7 +55,18 @@ class TaskService
   addTaskToProject: (projectName, taskName) ->
     unless @_projects[projectName]
       throw Error
-    @_projects[projectName].push taskName
+    task = @_createTask taskName
+    @_projects[projectName].push task
+    task.id
+
+  _createTask: (taskName) ->
+    {name: taskName, id: @_taskIdCounter++}
+
+  findTaskById: (taskId) ->
+    tasks = []
+    for projectName of @_projects
+      tasks ++= [task for task in @_projects[projectName] when task.id == taskId]
+    tasks[0]
 
   findAllProjects: ->
     Object.keys @_projects
