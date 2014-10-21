@@ -1,3 +1,4 @@
 javascript/node_modules
 livescript/node_modules
 livescript/src/task-spec.js
+livescript/src/task-service.js
