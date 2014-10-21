@@ -27,19 +27,27 @@ describe 'tasks' (void) !->
       taskService.addTaskToProject 'project' 'a task'
     .toThrow()
 
+  # public void addingTaskToExistingProjectDoesNotResultInAnError() throws Exception {
+  it 'adding task to existing project does not result in an error' !->
+    taskService.addProject 'project'
+    expect !->
+      taskService.addTaskToProject 'project' 'a task'
+    .not.toThrow()
 
 class TaskService
 
   ->
-    @_tasks = []
+    @_projects = {}
 
-  _tasks : null
+  _projects : null
 
   addProject: (projectName) ->
-    @_tasks.push projectName
+    @_projects[projectName] = []
 
-  addTaskToProject: ->
-    throw Error
+  addTaskToProject: (projectName, taskName) ->
+    unless @_projects[projectName]
+      throw Error
+    @_projects[projectName].push taskName
 
   findAllProjects: ->
-    @_tasks
+    Object.keys @_projects
