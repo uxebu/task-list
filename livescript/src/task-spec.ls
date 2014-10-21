@@ -41,6 +41,11 @@ describe 'tasks' (void) !->
     task = taskService.findTaskById taskId
     expect task.name .toBe 'a task'
 
+  # public void findByIdReturnsNullWhenNoProjectsExist() throws Exception {
+  it 'find by id returns null when no projects exist' !->
+    task = taskService.findTaskById 32
+    expect task .toBe null
+
 class TaskService
 
   ->
@@ -66,7 +71,7 @@ class TaskService
     tasks = []
     for projectName of @_projects
       tasks ++= [task for task in @_projects[projectName] when task.id == taskId]
-    tasks[0]
+    tasks[0] or null
 
   findAllProjects: ->
     Object.keys @_projects
