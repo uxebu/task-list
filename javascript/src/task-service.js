@@ -1,3 +1,5 @@
+var Task = require('./task');
+
 function TaskService() {
   this._projects = {};
 }
@@ -14,16 +16,9 @@ TaskService.prototype = {
     if (!this._projects[projectName]) {
       throw Error;
     }
-    var task = this._createTask(taskName);
+    var task = new Task(taskName);
     this._projects[projectName].push(task);
     return task.id;
-  },
-
-  _createTask: function(taskName) {
-    return {
-      name: taskName,
-      id: this._taskIdCounter++
-    };
   },
 
   findTaskById: function(taskId) {

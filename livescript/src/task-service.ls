@@ -1,3 +1,5 @@
+Task = require './task'
+
 class TaskService
 
   ->
@@ -12,12 +14,9 @@ class TaskService
   addTaskToProject: (projectName, taskName) ->
     unless @_projects[projectName]
       throw Error
-    task = @_createTask taskName
+    task = new Task taskName
     @_projects[projectName].push task
     task.id
-
-  _createTask: (taskName) ->
-    {name: taskName, id: @_taskIdCounter++}
 
   findTaskById: (taskId) ->
     tasks = []
