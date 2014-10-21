@@ -46,6 +46,13 @@ describe 'tasks' (void) !->
     task = taskService.findTaskById 32
     expect task .toBe null
 
+  # public void findByIdReturnsNullWhenNoTaskWithGivenIdExists() throws Exception {
+  it 'find by id returns null when no task with given id exists' !->
+    taskService.addProject 'project'
+    taskId = taskService.addTaskToProject 'project' 'a task'
+    task = taskService.findTaskById taskId+1
+    expect task .toBe null
+
 class TaskService
 
   ->
