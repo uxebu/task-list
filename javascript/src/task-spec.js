@@ -1,4 +1,6 @@
 var TaskService = require('./task-service');
+var DeadlineNotToday = require('./deadline').DeadlineNotToday;
+var DeadlineToday = require('./deadline').DeadlineToday;
 
 describe('test setup', function(){
   it('works', function(){
@@ -79,4 +81,50 @@ describe('tasks', function(){
     expect(tasks[0].name).toBe('a task');
   });
 
+  describe('deadline', function() {
+    var emptyTasksSet = [];
+
+    it('no deadlines should report none', function() {
+      expect(taskService.showTasksDueToday()).toEqual(emptyTasksSet);
+    });
+
+    it('task without deadline should report none', function() {
+      taskService.addProject('project');
+      taskService.addTaskToProject('project', 'a task');
+      expect(taskService.showTasksDueToday()).toEqual(emptyTasksSet);
+    });
+
+    it('today deadline should report that task', function() {
+      taskService.addProject('project');
+      var taskId = taskService.addTaskToProject('project', 'a task');
+      var task = taskService.findTaskById(taskId);
+      taskService.addDeadlineToTask(taskId, new DeadlineToday());
+      expect(taskService.showTasksDueToday()).toEqual([task]);
+    });
+
+    it('NOT today deadline should report that task', function() {
+      taskService.addProject('project');
+      var taskId = taskService.addTaskToProject('project', 'a task');
+      var task = taskService.findTaskById(taskId);
+      taskService.addDeadlineToTask(taskId, new DeadlineNotToday());
+      expect(taskService.showTasksDueToday()).toEqual([]);
+    });
+
+    it('two with deadline today', function() {
+      taskService.addProject('project');
+      var firstTaskId = taskService.addTaskToProject('project', 'a task with deadline');
+      taskService.addDeadlineToTask(firstTaskId, new DeadlineToday());
+      var firstTask = taskService.findTaskById(firstTaskId);
+
+      var taskId = taskService.addTaskToProject('project', 'a task with deadline');
+      var task = taskService.findTaskById(taskId);
+      taskService.addDeadlineToTask(taskId, new DeadlineToday());
+
+      expect(taskService.showTasksDueToday()).toEqual([firstTask, task]);
+    });
+
+
+
+  });
+  
 });

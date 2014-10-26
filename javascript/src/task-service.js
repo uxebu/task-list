@@ -1,12 +1,15 @@
 var Task = require('./task');
+var DeadlineToday = require('./deadline').DeadlineToday;
 
 function TaskService() {
   this._projects = {};
+  this._tasksDueToday = [];
 }
 TaskService.prototype = {
 
   _projects: null,
   _taskIdCounter: 0,
+  _tasksDueToday: null,
 
   addProject: function(projectName) {
     return this._projects[projectName] = [];
@@ -19,6 +22,16 @@ TaskService.prototype = {
     var task = new Task(taskName);
     this._projects[projectName].push(task);
     return task.id;
+  },
+
+  addDeadlineToTask: function(taskId, deadline) {
+    if (deadline instanceof DeadlineToday) {
+      this._tasksDueToday.push(taskId);
+    }
+  },
+
+  showTasksDueToday: function() {
+    return this._tasksDueToday.map(this.findTaskById, this);
   },
 
   findTaskById: function(taskId) {
